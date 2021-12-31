@@ -1,11 +1,18 @@
-import { suma, resta } from './operation';
 
 function operacion (a: number, b: number, operation: string): Promise<number> {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         if(operation === 'suma'){
-            resolve(suma(a, b))
+            
+            const f = await import('./Suma');
+            let instance = new f.default(a,b);
+            resolve(instance.resultado())
+
         } else if (operation === 'resta'){
-            resolve(resta(a, b))
+            
+            const f = await import('./Resta');
+            let instance = new f.default(a,b);
+            resolve(instance.resultado())
+
         } else {
             reject (`${operation} no es valido`);
         }
